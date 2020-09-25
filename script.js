@@ -38,7 +38,7 @@ class Calculator {
       let computation;
       const prev = parseFloat(this.previousOperand);
       const current = parseFloat(this.currentOperand);
-      if ((!isNaN(prev) || this.currentExceptionArray.includes(this.operation)) && (!isNaN(current) || this.previousExceptionArray.includes(this.operation))) {
+      if (!isNaN(current) || this.previousExceptionArray.includes(this.operation) && (!isNaN(prev) || this.currentExceptionArray.includes(this.operation))) {
          switch (this.operation) {
             case "+":
                (prev === 0.2 && current === 0.1 || prev === 0.1 && current === 0.2) ? computation = 0.3 : computation = prev + current;
@@ -53,7 +53,7 @@ class Calculator {
                computation = +(prev * current).toFixed(17);
                break;
             case "√":
-               (prev < 0) ? computation = 'ERROR' : computation = Math.sqrt(prev);
+               (current < 0) ? computation = 'ERROR' : computation = Math.sqrt(current);
                break;
             case "^":
                computation = Math.pow(prev, current);
