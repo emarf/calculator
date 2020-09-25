@@ -5,6 +5,7 @@ class Calculator {
       this.currentExceptionArray = ['-'];
       this.previousExceptionArray = ['√'];
       this.clear();
+      this.resetPreviousComputation = false;
    }
 
    clear() {
@@ -44,7 +45,7 @@ class Calculator {
                (prev === 0.2 && current === 0.1 || prev === 0.1 && current === 0.2) ? computation = 0.3 : computation = prev + current;
                break;
             case "-":
-               (isNaN(prev)) ? computation = -current : computation = prev - current;
+               (isNaN(prev)) ? computation = -current : computation = +(prev - current).toFixed(2);
                break;
             case "÷":
                (prev === 0.3 || prev === -0.3) ? computation = +(prev / current).toFixed(2) : computation = prev / current;
@@ -62,6 +63,7 @@ class Calculator {
                return;
          }
       }
+      this.resetPreviousComputation = true;
       this.previousOperand = '';
       this.currentOperand = computation;
       this.operation = undefined;
@@ -113,6 +115,10 @@ const calculator = new Calculator(previousOperandTextElement, currentOperandText
 
 numberButtons.forEach(button => {
    button.addEventListener('click', () => {
+      if (calculator.previousOperand === '' && calculator.currentOperand !== '' && calculator.resetPreviousComputation) {
+         calculator.currentOperand = '';
+         calculator.resetPreviousComputation = false;
+      }
       calculator.addNumber(button.innerText);
       calculator.updateDisplay();
    })
