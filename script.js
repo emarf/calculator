@@ -47,7 +47,7 @@ class Calculator {
                (isNaN(prev)) ? computation = -current : computation = prev - current;
                break;
             case "÷":
-               (prev === 0.3) ? computation = +(prev / current).toFixed(2) : computation = prev / current;
+               (prev === 0.3 || prev === -0.3) ? computation = +(prev / current).toFixed(2) : computation = prev / current;
                break;
             case "*":
                computation = +(prev * current).toFixed(17);
