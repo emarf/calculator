@@ -53,7 +53,7 @@ class Calculator {
                computation = +(prev * current).toFixed(17);
                break;
             case "√":
-               (prev < 0) ? computation = 'ERROR' : Math.sqrt(prev);
+               (prev < 0) ? computation = 'ERROR' : computation = Math.sqrt(prev);
                break;
             case "^":
                computation = Math.pow(prev, current);
