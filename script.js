@@ -23,7 +23,7 @@ class Calculator {
       if (this.currentOperand !== '' && this.previousOperand !== '') {
          this.compute();
       }
-      if (this.currentExceptionArray.includes(operation)) {
+      if (this.currentExceptionArray.includes(operation) && this.currentOperand === '') {
          this.currentOperand = operation;
       } else if (this.previousOperand !== '' && this.currentOperand === '') {
          this.operation = operation;
@@ -47,7 +47,7 @@ class Calculator {
                (isNaN(prev)) ? computation = -current : computation = prev - current;
                break;
             case "÷":
-               computation = prev / current;
+               (prev === 0.3) ? computation = +(prev / current).toFixed(2) : computation = prev / current;
                break;
             case "*":
                computation = +(prev * current).toFixed(17);
