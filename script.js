@@ -4,6 +4,7 @@ class Calculator {
       this.currentOperandTextElement = currentOperandTextElement;
       this.currentExceptionArray = ['-'];
       this.previousExceptionArray = ['√'];
+      this.exceptionArray = ['√', "÷", "*", "^", "+"];
       this.clear();
       this.resetPreviousComputation = false;
    }
@@ -21,6 +22,7 @@ class Calculator {
       this.currentOperand = this.currentOperand.toString() + number.toString();
    }
    addOperation(operation) {
+      if (this.exceptionArray.includes(operation) && this.currentOperand === '') return;
       if (this.currentOperand !== '' && this.previousOperand !== '') {
          this.compute();
       }
@@ -54,7 +56,7 @@ class Calculator {
                computation = +(prev * current).toFixed(17);
                break;
             case "√":
-               (current < 0) ? computation = 'ERROR' : computation = Math.sqrt(current);
+               (prev < 0) ? computation = 'ERROR' : computation = Math.sqrt(prev);
                break;
             case "^":
                computation = Math.pow(prev, current);
